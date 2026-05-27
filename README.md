@@ -347,8 +347,6 @@ Ldap query $DC "(msDS-AllowedToDelegateTo=*)" -u $UPN -p $PASS -Kdc $DC_IP -Outp
 # Resource-based constrained delegation
 Ldap query $DC "(msDS-AllowedToActOnBehalfOfOtherIdentity=*)" -u $UPN -p $PASS -Kdc $DC_IP -OutputFields sAMAccountName, msDS-AllowedToActOnBehalfOfOtherIdentity
 
-# Constrained delegation w/ protocol transition
-Ldap query $DC "(userAccountControl|=TrustedForS4U2self)" -u $UPN -p $PASS -Kdc $DC_IP
 ```
 
 ### Schema & helper commands
